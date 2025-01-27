@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="dto"
+            type="com.samraa.data.models.dto.OrderDto" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/itemHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_gray_round_8"
+        android:clipToOutline="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="14dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/customerId"
+            setAlpha="@{dto.statusLocked}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:letterSpacing="0.02"
+            android:text="@{dto.id}"
+            android:textColor="@color/graphite_60"
+            android:textFontWeight="600"
+            android:textSize="14sp"
+            app:fontFamily="@font/helvetica"
+            tools:text="#1122" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/customerName"
+            setAlpha="@{dto.statusLocked}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:letterSpacing="0.02"
+            android:text="@{dto.customerName}"
+            android:textColor="@color/graphite_60"
+            android:textFontWeight="600"
+            android:textSize="14sp"
+            app:fontFamily="@font/helvetica"
+            tools:text="Samra" />
+
+
+        <!-- Status -->
+        <FrameLayout
+            setAlpha="@{dto.statusLocked}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/orderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_done"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:letterSpacing="0.02"
+                android:maxWidth="88dp"
+                android:paddingHorizontal="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/graphite_60"
+                android:textFontWeight="600"
+                android:textSize="14sp"
+                app:fontFamily="@font/helvetica"
+                tools:text="Pending" />
+
+        </FrameLayout>
+    </LinearLayout>
+</layout>

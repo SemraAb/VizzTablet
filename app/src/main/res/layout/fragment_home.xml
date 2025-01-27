@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.samraa.vizztablet.ui.home.HomeVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_surface"
+        tools:context=".ui.home.HomeFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/qrCodeSection"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_surface"
+            android:clipToPadding="false"
+            android:paddingEnd="72dp"
+            app:constraintEndToStartOfDynamic="@{viewModel.toggle ? @id/infoLayout : @id/toggleLayout}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="24dp"
+                android:src="@drawable/ic_app"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/organizationLogoImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="24dp"
+                android:scaleType="fitXY"
+                android:translationX="72dp"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearanceOverlay.Vizz.CornerSize14" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/welcomeText"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="168dp"
+                android:text="Logo restoranina xos geldiniz"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textFontWeight="550"
+                android:textSize="36sp"
+                app:fontFamily="@font/helvetica"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/scanQrText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zehmet olmasa QR-i oxudun"
+                android:textColor="@color/gray_text"
+                android:textSize="24sp"
+                app:fontFamily="@font/helvetica"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcomeText" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="Vizz MMC terefinden qorunur"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp"
+                app:fontFamily="@font/helvetica"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/qrCodeImage"
+                onSingleClick="@{()->viewModel.setToggle()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scanQrText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="560dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_white_left_16"
+            android:padding="24dp"
+            app:isVisibleElseGone="@{viewModel.toggle}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/toggleIcon"
+                onSingleClick="@{()->viewModel.setToggle()}"
+                android:layout_width="16dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/ic_toggle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:visibility="gone"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeWidthFocused="1dp"
+                app:endIconMode="custom"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toggleIcon">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:hint="Axtar"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={viewModel.search}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/headerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_round_green_8"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/searchBar">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="14dp"
+                    android:text="Məhsulun kodu"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/helvetica" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="36dp"
+                    android:alpha="0.6"
+                    android:background="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="14dp"
+                    android:text="Məhsulun adi"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/helvetica" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="36dp"
+                    android:alpha="0.6"
+                    android:background="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/orderStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableEnd="@drawable/ic_okay"
+                    android:padding="14dp"
+                    android:text="Sifarişin statusu"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/helvetica" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tableRV"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/headerView"
+                app:layout_constraintTop_toBottomOf="@id/headerView"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/item_table_row" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toggleLayout"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_white_left_16"
+            android:paddingVertical="24dp"
+            app:isVisibleElseGone="@{!viewModel.toggle}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/toggleIcon2"
+                onSingleClick="@{()->viewModel.setToggle()}"
+                android:layout_width="16dp"
+                android:layout_height="27dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/ic_toggle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

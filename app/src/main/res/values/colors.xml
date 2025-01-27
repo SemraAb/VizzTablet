@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8EBE64</color>
+    <color name="colorPrimaryDark">#8EBE64</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="color_background">#FFFFFFFF</color>
+    <color name="color_surface">#F2F2F7</color>
+
+    <color name="graphite_90">#333132</color>
+    <color name="graphite_60">#828282</color>
+    <color name="graphite_30">#9B9B9B</color>
+
+    <color name="bright_white">#F5F6FA</color>
+
+    <color name="green">#8EBE64</color>
+    <color name="light_green">#C5EEA6</color>
+    <color name="bright_green">#34C759</color>
+    <color name="dark_green">#8EBE64</color>
+    <color name="done_green">#CEEFDF</color>
+    <color name="done_green_text">#16996C</color>
+    <color name="done_green_border">#84BEA9</color>
+
+    <color name="orange">#DE8200</color>
+    <color name="bright_orange">#FF9500</color>
+    <color name="light_orange">#FAEDCC</color>
+    <color name="done_orange_border">#E6C996</color>
+
+
+    <color name="red">#F4512C</color>
+    <color name="bright_red">#FF3B30</color>
+    <color name="light_red">#F7D7D5</color>
+    <color name="done_red_border">#F6B1A3</color>
+
+
+    <color name="table_row_bg_color">#F0F0F0</color>
+    <color name="gray_text">#6E6E6E</color>
+    <color name="navy_text">#505673</color>
+    <color name="blue">#0617B6</color>
+
+</resources>

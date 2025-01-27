@@ -1,0 +1,273 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.samraa.vizztablet.ui.auth.register.RegisterVM" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:context="com.samraa.vizztablet.ui.auth.register.RegisterFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_background" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.64"
+                android:background="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_background">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/appIc"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="56dp"
+                android:src="@drawable/ic_app"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/emailTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/in_register_email"
+                android:textColor="@color/navy_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/emailEditTxt"
+                app:layout_constraintTop_toBottomOf="@id/appIc" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailEditTxt"
+                style="@style/Widget.Vizz.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="124dp"
+                android:layout_marginTop="2dp"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/emailTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="@string/in_register_email_hint"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}"
+                    android:textColor="@color/navy_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                isVisibleElseGone="@{!viewModel.isEmailValid}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="It is not valid!"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/emailEditTxt"
+                app:layout_constraintTop_toBottomOf="@id/emailEditTxt" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/passwordTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/in_register_password"
+                android:textColor="@color/navy_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/passwordEdtTxt"
+                app:layout_constraintTop_toBottomOf="@id/emailEditTxt"
+                app:layout_goneMarginBottom="4dp"
+                app:layout_marginBaseline="2dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordEdtTxt"
+                style="@style/Widget.Vizz.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="124dp"
+                android:layout_marginTop="2dp"
+                app:endIconDrawable="@drawable/ic_eye"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/eye_icon_color"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/passwordTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="@string/in_register_password_hint"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.password}"
+                    android:textColor="@color/navy_text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/passwordReEnterTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/in_register_re_enter_password"
+                android:textColor="@color/navy_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/passwordEdtTxt"
+                app:layout_constraintTop_toBottomOf="@id/passwordEdtTxt" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordReEnterEdtTxt"
+                style="@style/Widget.Vizz.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="124dp"
+                android:layout_marginTop="2dp"
+                app:endIconDrawable="@drawable/ic_eye"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/eye_icon_color"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/passwordReEnterTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="@string/in_register_re_enter_password_hint"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.passwordReEnter}"
+                    android:textColor="@color/navy_text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                isVisibleElseGone="@{!viewModel.isPasswordSame}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="It is not same!"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/passwordReEnterEdtTxt"
+                app:layout_constraintTop_toBottomOf="@id/passwordReEnterEdtTxt" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/locationTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/helvetica"
+                android:text="@string/in_register_location"
+                android:textColor="@color/navy_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/locationEdtTxt"
+                app:layout_constraintTop_toBottomOf="@id/passwordReEnterEdtTxt" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/locationEdtTxt"
+                style="@style/Widget.Vizz.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="124dp"
+                android:layout_marginTop="2dp"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/locationTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/helvetica"
+                    android:hint="@string/in_register_location_hint"
+                    android:inputType="text"
+                    android:text="@={viewModel.location}"
+                    android:textColor="@color/navy_text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/uploadImgTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="2dp"
+                android:drawableEnd="@drawable/ic_upload_logo"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/helvetica"
+                android:gravity="center"
+                android:text="Upload logo (optional)"
+                android:textColor="@color/navy_text"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/locationEdtTxt"
+                app:layout_constraintTop_toBottomOf="@id/locationEdtTxt" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/selectedImageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/uploadImgTxt"
+                android:src="@drawable/ic_done_24dp"
+                android:scaleType="fitCenter"
+                isVisibleElseGone="@{viewModel.isVisibleDone}"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/uploadImgTxt"
+                app:layout_constraintTop_toTopOf="@id/uploadImgTxt"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/singUpBtn"
+                style="@style/Widget.Vizz.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="124dp"
+                android:layout_marginTop="16dp"
+                android:enabled="@{viewModel.enableSignUpButton}"
+                android:text="@string/in_register_sign_up"
+                app:layout_constraintTop_toBottomOf="@id/uploadImgTxt"
+                tools:layout_editor_absoluteX="124dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/signInTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/in_register_sign_in_text"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                app:fontFamily="@font/helveticaoblique"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/singUpBtn"
+                app:layout_constraintTop_toBottomOf="@id/singUpBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

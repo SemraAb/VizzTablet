@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">VizzTablet</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //login
+    <string name="in_login_email">Email</string>
+    <string name="in_login_email_hint">Enter your email address</string>
+    <string name="in_login_password">Password</string>
+    <string name="in_login_password_hint">Enter your password</string>
+    <string name="in_login_sign_in">Sign in</string>
+    <string name="in_login_switch_sign_up">If you do not have an account, sign up from here please!</string>
+    <string name="in_register_email_hint">Enter your email address</string>
+    <string name="in_register_email">Email</string>
+    <string name="in_register_password">Password</string>
+    <string name="in_register_password_hint">Enter your password</string>
+    <string name="in_register_re_enter_password">Re-Enter Password</string>
+    <string name="in_register_re_enter_password_hint">Re-Enter your password</string>
+    <string name="in_register_location">Location</string>
+    <string name="in_register_location_hint">Enter company Address</string>
+    <string name="in_register_sign_up">Sign Up</string>
+    <string name="in_register_sign_in_text">If you have an account, sign in from here please!</string>
+
+</resources>

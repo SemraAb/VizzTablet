@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "577154307098",
+    "project_id": "vizz-e8232",
+    "storage_bucket": "vizz-e8232.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577154307098:android:0df9c1141241a7486fada3",
+        "android_client_info": {
+          "package_name": "com.samraa.vizztablet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7a8OkWWDBqZiobOD6OOsEOmaG4ey27UE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
