@@ -1,9 +1,7 @@
 package com.samraa.vizztablet.ui.home.adapter
 
 import android.view.ViewGroup
-import androidx.compose.runtime.collection.MutableVector
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.samraa.data.models.dto.OrderDto
@@ -19,7 +17,7 @@ class TableAdapter : ListAdapter<OrderDto, RecyclerView.ViewHolder>(DiffCallback
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is TableItemVH) {
-             holder.bind(getItem(position))
+            holder.bind(getItem(position))
         }
     }
 

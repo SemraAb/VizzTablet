@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
@@ -43,7 +43,6 @@ android {
 }
 
 dependencies {
-    // data module implementation
     implementation(project(":data"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -70,7 +69,7 @@ dependencies {
     //extra
     implementation("net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.3.0")
     implementation("com.karumi:dexter:6.2.3")
-    
+
 
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))

@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "577154307098",
-    "project_id": "vizz-e8232",
-    "storage_bucket": "vizz-e8232.firebasestorage.app"
+    "project_number": "681631699076",
+    "project_id": "my-application3-18300",
+    "storage_bucket": "my-application3-18300.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:577154307098:android:0df9c1141241a7486fada3",
+        "mobilesdk_app_id": "1:681631699076:android:df87ea2e42915955cff2d1",
+        "android_client_info": {
+          "package_name": "com.samraa.vizz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF0qMeEcBHVdMQdb3azLuwvmRqCxU62GE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681631699076:android:3976beca12a02f6dcff2d1",
         "android_client_info": {
           "package_name": "com.samraa.vizztablet"
         }
@@ -15,7 +34,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA7a8OkWWDBqZiobOD6OOsEOmaG4ey27UE"
+          "current_key": "AIzaSyAF0qMeEcBHVdMQdb3azLuwvmRqCxU62GE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681631699076:android:86914d981f981954cff2d1",
+        "android_client_info": {
+          "package_name": "com.ugurukku.myapplication3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF0qMeEcBHVdMQdb3azLuwvmRqCxU62GE"
         }
       ],
       "services": {

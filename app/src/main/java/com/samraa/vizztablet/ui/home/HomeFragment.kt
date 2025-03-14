@@ -1,29 +1,28 @@
 package com.samraa.vizztablet.ui.home
 
 import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.lifecycle.asLiveData
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.samraa.data.enums.OrderStatus
 import com.samraa.data.models.dto.OrderDto
 import com.samraa.vizztablet.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.samraa.vizztablet.databinding.FragmentHomeBinding
+import com.samraa.vizztablet.manager.messaging.MyFirebaseMessagingService
 import com.samraa.vizztablet.ui.base.BaseFragment
 import com.samraa.vizztablet.ui.home.adapter.SwipeGesture
 import com.samraa.vizztablet.ui.home.adapter.TableAdapter
@@ -46,6 +45,14 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private val orderListRefreshReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == MyFirebaseMessagingService.ORDER_LIST_REFRESH_ACTION) {
+                // Call getOrders() when the notification is received
+                viewModel.getOrders()
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -54,31 +61,23 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Register the receiver when the view is created
+        val filter = IntentFilter(MyFirebaseMessagingService.ORDER_LIST_REFRESH_ACTION)
+        LocalBroadcastManager.getInstance(requireContext())
+            .registerReceiver(orderListRefreshReceiver, filter)
+    }
+
     override fun subscribeToObservables() {
         viewModel.filteredOrders
             .asLiveData()
             .observe(viewLifecycleOwner) { orders ->
-                adapter.submitList(orders)
-            }
-
-        viewModel.search
-            .asLiveData()
-            .observe(this) {
-                if (it.isEmpty()) {
-                    binding.searchBar.error = null // Clear error if input is empty
-                } else {
-                    if (it == "salam") {
-                        Log.e("emil", "not error: ${viewModel.search.value} ")
-                        binding.searchBar.error = null // Clear error if matches are found
-                    } else {
-                        binding.searchBar.error =
-                            "Item not found" // Show error if no match is found
-                        Log.e("emil", "error: ${viewModel.search.value} ")
-
-                    }
+                adapter.submitList(orders){
+                    binding.tableRV.scrollToPosition(0)
                 }
-
             }
+
         viewModel.organizationQr.observe(this) {
             binding.qrCodeImage.setImageBitmap(it)
         }
@@ -109,8 +108,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupMenu() {
-        val popupMenu =
-            androidx.appcompat.widget.PopupMenu(requireContext(), binding.orderStatusText)
+//        val popupMenu =
+//            androidx.appcompat.widget.PopupMenu(requireContext(), binding.orderStatusText)
+
+        val popupMenu = PopupMenu(ContextThemeWrapper(requireContext(), R.style.PopupMenu), binding.orderStatusText)
 
         popupMenu.menuInflater.inflate(
             R.menu.order_status_menu,
@@ -176,6 +177,18 @@ class HomeFragment : BaseFragment() {
             setupMenu()
         }
 
+        requireActivity().onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finishAffinity(requireActivity())
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Unregister the receiver to prevent leaks
+        LocalBroadcastManager.getInstance(requireContext())
+            .unregisterReceiver(orderListRefreshReceiver)
     }
 
 }

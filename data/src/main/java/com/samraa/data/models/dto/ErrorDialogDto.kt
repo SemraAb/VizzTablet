@@ -1,7 +1,6 @@
 package com.samraa.data.models.dto
 
 import androidx.annotation.StringRes
-import com.samraa.data.R
 import com.samraa.data.utils.ResponseStatus
 
 class ErrorDialogDto(

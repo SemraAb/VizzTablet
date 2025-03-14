@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel(){
+abstract class BaseViewModel : ViewModel() {
     private val _showErrorDialog = MutableStateFlow<ErrorDialogDto?>(null)
     val showErrorDialog = _showErrorDialog.asStateFlow()
 
@@ -31,30 +31,23 @@ abstract class BaseViewModel : ViewModel(){
         showProgressDialog: Boolean = false,
         func: suspend () -> Resource<T>
     ): Job {
-        if (uiState.value != UiState.LOADING)
-            uiState.value = UiState.LOADING
+        if (uiState.value != UiState.LOADING) uiState.value = UiState.LOADING
 
-        if (showProgressDialog)
-            _showProgressDialog.value = uiState.value
+        if (showProgressDialog) _showProgressDialog.value = uiState.value
 
         return viewModelScope.launch {
             val response = func()
             val newState = response.asUiState(checkEmptyList)
 
-            if (showErrorDialog && newState == UiState.ERROR)
-                showError(response.asErrorDialogModel())
+            if (showErrorDialog && newState == UiState.ERROR) showError(response.asErrorDialogModel())
 
-            if (hasNextRequest && newState == UiState.SUCCESS)
-                return@launch
+            if (hasNextRequest && newState == UiState.SUCCESS) return@launch
 
             if (checkErrorState || newState != UiState.ERROR) {
-//                delay(200)
-
                 uiState.value = newState
             }
 
-            if (showProgressDialog)
-                _showProgressDialog.value = uiState.value
+            if (showProgressDialog) _showProgressDialog.value = uiState.value
         }
     }
 

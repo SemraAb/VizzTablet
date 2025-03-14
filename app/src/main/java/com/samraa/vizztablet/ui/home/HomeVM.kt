@@ -2,13 +2,11 @@ package com.samraa.vizztablet.ui.home
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import com.samraa.data.api.repository.HomeRepo
 import com.samraa.data.enums.OrderStatus
 import com.samraa.data.models.dto.OrderDto
 import com.samraa.data.models.request.UpdateOrderStatusRequest
 import com.samraa.data.persistence.SessionManager
-import com.samraa.data.utils.onError
 import com.samraa.data.utils.onSuccess
 import com.samraa.vizztablet.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +18,7 @@ class HomeVM(private val repo: HomeRepo) : BaseViewModel() {
 
     private val _filteredOrders = MutableStateFlow<List<OrderDto>>(emptyList())  // Filtered orders
     val filteredOrders = _filteredOrders.asStateFlow()
-    
+
     private val _toggle = MutableStateFlow<Boolean>(true)
     val toggle = _toggle.asStateFlow()
 
@@ -48,31 +46,25 @@ class HomeVM(private val repo: HomeRepo) : BaseViewModel() {
 
     private fun getOrganizationQr() = executeInBackground {
         repo.getOrganizationQr(token = SessionManager.token).onSuccess { response ->
-            Log.e("emil success qr", "getOrganizationQr: ${response.body()}")
             val inputStream = response.body()?.byteStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
             _organizationQr.emit(bitmap)
-        }.onError { message, statusEnum, statusCode ->
-            Log.e("emil message", "getOrganizationQr: error happening ${message} ")
         }
     }
 
 
     private fun getOrganizationLogo() = executeInBackground {
         repo.getOrganizationLogo(token = SessionManager.token).onSuccess { responseBody ->
-            Log.e("emil success logo", "getOrganizationQr: ${responseBody.body()}")
             val inputStream = responseBody.body()?.byteStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
             _organizationLogo.emit(bitmap)
 
-        }.onError { message, statusEnum, statusCode ->
-
         }
     }
 
-    private fun getOrders() = executeInBackground {
+    fun getOrders() = executeInBackground(uiState = _uiState, checkEmptyList = true) {
         repo.getOrders(token = SessionManager.token).onSuccess {
             val updatedOrders = it.map { order ->
                 if (order.orderStatus != OrderStatus.IN_PROGRESS) {
@@ -83,9 +75,6 @@ class HomeVM(private val repo: HomeRepo) : BaseViewModel() {
             }
             _orderList.emit(updatedOrders)
             filterOrders()
-            Log.e("emil", "getOrders: success  ${_orderList.value}")
-        }.onError { message, statusEnum, statusCode ->
-            Log.e("emil", "getOrders: error ${message.toString()} ")
         }
     }
 
@@ -97,7 +86,6 @@ class HomeVM(private val repo: HomeRepo) : BaseViewModel() {
                 status = orderStatus.name
             )
         ).onSuccess {
-            Log.e("emil", "updateOrderStatus: success ")
             _orderList.value = _orderList.value.map {
                 if (it.id == order.id) it.copy(
                     orderStatus = orderStatus,
@@ -105,8 +93,6 @@ class HomeVM(private val repo: HomeRepo) : BaseViewModel() {
                 ) else it
             }
             filterOrders()
-        }.onError { message, statusEnum, statusCode ->
-            Log.e("emil", "updateOrderStatus: error ")
         }
 
     }

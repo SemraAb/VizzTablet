@@ -11,7 +11,7 @@ sealed class Resource<out T> {
     ) : Resource<Nothing>()
 }
 
-inline fun <T : Any> Resource<T>.   onSuccess(action: (T) -> Unit): Resource<T> {
+inline fun <T : Any> Resource<T>.onSuccess(action: (T) -> Unit): Resource<T> {
     if (this is Resource.Success) action(data)
     return this
 }

@@ -1,16 +1,11 @@
 package com.samraa.data.utils
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
-import android.provider.OpenableColumns
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 
 fun File.toMultipartBodyPart(partName: String): MultipartBody.Part {
     val requestBody = this.asRequestBody("image/*".toMediaTypeOrNull())
@@ -24,4 +19,11 @@ fun Uri.toFile(context: Context): File {
         inputStream?.copyTo(outputStream)
     }
     return tempFile
+}
+
+fun createEmptyFile(context: Context): File {
+    // Create a temporary empty file in the cache directory
+    val emptyFile = File.createTempFile("empty", ".txt", context.cacheDir)
+    emptyFile.createNewFile() // Ensure the file is created
+    return emptyFile
 }

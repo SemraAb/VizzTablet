@@ -1,5 +1,6 @@
 package com.samraa.vizztablet.utils.extension
 
+import android.content.Context
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -12,10 +13,6 @@ import com.samraa.data.models.dto.ErrorDialogDto
 import com.samraa.data.utils.Resource
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
 
 fun <T> StateFlow<T>.observe(
     fragment: Fragment,
@@ -51,4 +48,17 @@ fun NavController.navigateSafely(@IdRes actionId: Int) {
 
 fun NavController.navigateSafely(directions: NavDirections) {
     currentDestination?.getAction(directions.actionId)?.let { navigate(directions) }
+}
+
+fun Context?.getResourceId(
+    variableName: String?,
+    resourceName: String = "id"
+): Int {
+    return this?.let {
+        try {
+            resources.getIdentifier(variableName, resourceName, packageName)
+        } catch (e: Exception) {
+            -1
+        }
+    } ?: -1
 }

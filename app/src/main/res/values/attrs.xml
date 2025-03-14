@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateView">
+        <attr name="sv_errorViewId" format="reference" />
+        <attr name="sv_loadingViewId" format="reference" />
+        <attr name="sv_emptyViewId" format="reference" />
+        <attr name="sv_retryViewId" format="reference" />
+        <attr name="sv_refreshLayoutId" format="reference" />
+        <attr name="sv_ignore_referenced_ids" format="string" />
+        <attr name="onRetryClick" format="string" />
+
+        <attr name="sv_viewState" format="enum">
+            <enum name="content" value="0" />
+            <enum name="loading" value="1" />
+            <enum name="error" value="2" />
+            <enum name="empty" value="3" />
+        </attr>
+
+        <attr name="sv_child_visibility" format="enum">
+            <enum name="gone" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

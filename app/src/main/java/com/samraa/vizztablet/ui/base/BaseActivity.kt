@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.samraa.data.enums.LanguageEnum.Companion.lowercase
 import com.samraa.data.persistence.SessionManager
 import com.samraa.vizztablet.utils.LocaleWrapper
-import com.samraa.vizztablet.utils.extension.hideSoftKeyboard
 import java.util.Locale
 
 abstract class BaseActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
-        hideSoftKeyboard()
 
         onBackPressed()
         return true

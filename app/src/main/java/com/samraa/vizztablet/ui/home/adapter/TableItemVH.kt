@@ -2,7 +2,6 @@ package com.samraa.vizztablet.ui.home.adapter
 
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -20,20 +19,10 @@ class TableItemVH(private val binding: ItemTableRowBinding) :
 
         binding.dto = dto
 
-//        if(dto.isStatusLocked){
-//            binding.itemHolder.isEnabled = false
-//            binding.itemHolder.isClickable = false
-//            binding.itemHolder.alpha = 0.5F
-//        }else{
-//            binding.itemHolder.isEnabled = true
-//            binding.itemHolder.isClickable = true
-//            binding.itemHolder.alpha =  1F
-//        }
-
         when (dto.orderStatus) {
             OrderStatus.IN_PROGRESS -> {
                 binding.orderStatus.background =
-                    ContextCompat.getDrawable(itemView.context, R.drawable.bg_peding)
+                    ContextCompat.getDrawable(itemView.context, R.drawable.bg_pending)
                 binding.orderStatus.setTextColor(
                     ContextCompat.getColor(
                         itemView.context,

@@ -1,7 +1,5 @@
 package com.samraa.data.utils
 
-import android.util.Log
-import com.samraa.data.utils.Resource
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import timber.log.Timber

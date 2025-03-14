@@ -7,7 +7,7 @@ enum class LanguageEnum(val fullName: String, val forApiRequest: String) {
 
     companion object {
         fun find(name: String?) =
-            LanguageEnum.values().find { it.name.equals(name, ignoreCase = true) } ?: AZ
+            entries.find { it.name.equals(name, ignoreCase = true) } ?: AZ
 
         fun LanguageEnum.lowercase() = name.lowercase()
     }

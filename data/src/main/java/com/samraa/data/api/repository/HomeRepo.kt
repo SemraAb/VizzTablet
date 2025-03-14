@@ -16,13 +16,14 @@ class HomeRepo(private val api: HomeApiService) : BaseRepo() {
         val response = api.getOrganizationLogo(token)
         ResponseHandler.handleSuccess(response)
     }
-    suspend fun getOrders(token:String) = callApi {
+
+    suspend fun getOrders(token: String) = callApi {
         val response = api.getOrders(token)
         ResponseHandler.handleSuccess(response.map { it.toDto() })
     }
 
-    suspend fun updateOrderStatus(request: UpdateOrderStatusRequest , token: String) = callApi {
-        val response = api.updateOrderStatus(token=token, request=request)
+    suspend fun updateOrderStatus(request: UpdateOrderStatusRequest, token: String) = callApi {
+        val response = api.updateOrderStatus(token = token, request = request)
         ResponseHandler.handleSuccess(response)
     }
 }

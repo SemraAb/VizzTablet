@@ -1,9 +1,9 @@
 package com.samraa.vizztablet.ui.auth.register
 
 import android.net.Uri
-import android.util.Log
-import androidx.core.net.toFile
+import androidx.lifecycle.viewModelScope
 import com.samraa.data.api.repository.AuthRepo
+import com.samraa.data.enums.UiState
 import com.samraa.data.models.request.RegisterRequest
 import com.samraa.data.persistence.SessionManager
 import com.samraa.data.utils.onError
@@ -13,7 +13,7 @@ import com.samraa.vizztablet.utils.CombinedStateFlow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class RegisterVM(private val repo: AuthRepo) : BaseViewModel() {
 
@@ -23,20 +23,22 @@ class RegisterVM(private val repo: AuthRepo) : BaseViewModel() {
     val location = MutableStateFlow<String>("")
     val logoImage = MutableStateFlow<Uri>(Uri.EMPTY)
 
-    val isEmailValid = CombinedStateFlow(email) {
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+
+    val isPasswordErrHintEnable = CombinedStateFlow(password, passwordReEnter) {
+        when {
+            password.value.isEmpty() && passwordReEnter.value.isEmpty() -> false
+            password.value.isNotEmpty() && passwordReEnter.value.isEmpty() -> false
+            password.value.isNotEmpty() && passwordReEnter.value.isNotEmpty() -> password.value.trim() != passwordReEnter.value.trim()
+            else -> false
+        }
     }
 
-    val isPasswordSame = CombinedStateFlow(password, passwordReEnter) {
-        passwordReEnter.value.trim() == password.value.trim() && password.value.trim().isNotEmpty()
-    }
     val enableSignUpButton = CombinedStateFlow(email, password, location, passwordReEnter) {
         email.value.isNotEmpty() &&
                 password.value.isNotEmpty() &&
                 passwordReEnter.value.isNotEmpty() &&
                 passwordReEnter.value.trim() == password.value.trim() &&
-                location.value.isNotEmpty() &&
-                android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+                location.value.isNotEmpty()
     }
 
     val isVisibleDone = MutableStateFlow(false)
@@ -44,7 +46,17 @@ class RegisterVM(private val repo: AuthRepo) : BaseViewModel() {
     private var _navigateToHome = MutableSharedFlow<Boolean>()
     val navigateToHome = _navigateToHome.asSharedFlow()
 
+    private val _errorMessage = MutableSharedFlow<String>()
+    val errorMessage = _errorMessage.asSharedFlow()
+
+    init {
+        viewModelScope.launch {
+            _uiState.emit(UiState.SUCCESS)
+        }
+    }
+
     fun register() = executeInBackground {
+        _uiState.emit(UiState.LOADING)
         repo.register(
             registerRequest = RegisterRequest(
                 username = email.value,
@@ -55,12 +67,17 @@ class RegisterVM(private val repo: AuthRepo) : BaseViewModel() {
             ),
             logoUri = logoImage.value
         ).onSuccess {
+            _uiState.emit(UiState.SUCCESS)
             SessionManager.token = it.accessToken
             SessionManager.loggedIn = true
 
             _navigateToHome.emit(true)
-        }.onError { message, status, _ ->
-            Log.e("error", "register:  ${status.name}")
+        }.onError { message, status, statusCode ->
+            _uiState.emit(UiState.SUCCESS)
+            when (statusCode) {
+                401 -> _errorMessage.emit("Unauthorized access. Please check your credentials and try again.")
+                else -> _errorMessage.emit("Something went wrong!")
+            }
         }
     }
 }

@@ -14,4 +14,4 @@ data class RegisterRequest(
     @SerializedName("deviceToken")
     var deviceToken: String,
 
-)
+    )

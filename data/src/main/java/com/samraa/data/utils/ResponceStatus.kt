@@ -8,6 +8,6 @@ enum class ResponseStatus {
 
     companion object {
         fun find(status: String?) =
-            values().find { it.name.lowercase() == status?.lowercase() } ?: FAILED
+            entries.find { it.name.lowercase() == status?.lowercase() } ?: FAILED
     }
 }
